@@ -1,32 +1,36 @@
 package ru.rt.demo.service;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import ru.rt.demo.dto.UserMapper;
 import ru.rt.demo.dto.user.NewUserRequest;
 import ru.rt.demo.dto.user.UserDto;
-import ru.rt.demo.exception.NotFoundException;
-import ru.rt.demo.exception.UserAlreadyExistException;
-import ru.rt.demo.messages.ExceptionMessages;
-import ru.rt.demo.messages.LogMessages;
-import ru.rt.demo.repository.UserRepository;
 
-@Slf4j
-@Service
-public class UserService {
-    private final UserRepository userRepository;
+import java.util.List;
 
-    @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+public interface UserService {
+    /**
+     * Добавление нового пользователя
+     * @param body Данные добавляемого пользователя
+     * @return
+     */
+    UserDto registerUser(NewUserRequest body);
 
-    public UserDto createdUser(NewUserRequest userDto) {
-        if(userRepository.existsUserByEmail(UserMapper.toUser(userDto).getEmail()))
-            throw new UserAlreadyExistException(String.valueOf(ExceptionMessages.USER_ALREADY_EXISTS));
+    /**
+     * Возвращает информацию обо всех пользователях
+     * (учитываются параметры ограничения выборки),
+     * либо о конкретных (учитываются указанные идентификаторы)
+     * <p>
+     * В случае, если по заданным фильтрам не найдено ни одного пользователя, возвращает пустой список
+     * @param ids id пользователей
+     * @param from количество элементов, которые нужно пропустить для формирования
+     * текущего набора default: 0
+     * @param size количество элементов в наборе default: 10
+     * @return
+     */
+    List<UserDto> getAllUsers(List<Long> ids, Integer from, Integer size);
 
-        log.debug(String.valueOf(LogMessages.ADD), "ПОЛЬЗОВАТЕЛЬ");
-        return UserMapper.toUserDto(userRepository.save(UserMapper.toUser(userDto)));
-    }
+    /**
+     * Удаление пользователя
+     * @param userId
+     */
+//    void delete(long userId);
+
 }
