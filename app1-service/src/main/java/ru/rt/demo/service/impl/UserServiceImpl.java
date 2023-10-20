@@ -5,9 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 import ru.rt.demo.dto.UserMapper;
 import ru.rt.demo.dto.user.NewUserRequest;
 import ru.rt.demo.dto.user.UserDto;
+import ru.rt.demo.dto.user.UserUpdatetDto;
 import ru.rt.demo.exception.UserAlreadyExistException;
 import ru.rt.demo.messages.ExceptionMessages;
 import ru.rt.demo.messages.LogMessages;
@@ -49,5 +51,14 @@ public class UserServiceImpl implements UserService {
 
         log.debug(String.valueOf(LogMessages.GET_ALL), "ПОЛЬЗОВАТЕЛЕЙ");
         return users.stream().map(UserMapper::toUserDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public User updateUser(Long userId, UserUpdatetDto userUpdatetDto) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException(ExceptionMessages.NOT_FOUND_ID));
+
+        log.debug(String.valueOf(LogMessages.UPDATE), "ПОЛЬЗОВАТЕЛЬ");
+        return userRepository.save(UserMapper.toUser(userUpdatetDto, user));
     }
 }

@@ -14,19 +14,18 @@ import java.util.List;
 @RestControllerAdvice
 public class ExceptionHandlers {
 
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    @ResponseStatus(HttpStatus.CONFLICT)
-    public ApiError handleDataIntegrityException(final DataIntegrityViolationException e, WebRequest request) {
-        ApiError apiError = new ApiError.ApiErrorBuilder()
-                .errors(List.of(e.getClass().getName()))
-                .message(e.getMessage())
-                .reason("Integrity constraint has been violated.")
-                .status(HttpStatus.CONFLICT)
-                .timestamp(LocalDateTime.now())
-                .build();
-
-        return apiError;
-    }
+//    @ExceptionHandler(DataIntegrityViolationException.class)
+//    @ResponseStatus(HttpStatus.CONFLICT)
+//    public ApiError handleDataIntegrityException(final DataIntegrityViolationException e, WebRequest request) {
+//        ApiError apiError = new ApiError.ApiErrorBuilder()
+//                .errors(List.of(e.getClass().getName()))
+//                .message(e.getMessage())
+//                .reason("Integrity constraint has been violated.")
+//                .status(HttpStatus.CONFLICT)
+//                .timestamp(LocalDateTime.now())
+//                .build();
+//        return apiError;
+//    }
 
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)

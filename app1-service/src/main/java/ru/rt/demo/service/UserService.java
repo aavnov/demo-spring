@@ -2,6 +2,8 @@ package ru.rt.demo.service;
 
 import ru.rt.demo.dto.user.NewUserRequest;
 import ru.rt.demo.dto.user.UserDto;
+import ru.rt.demo.dto.user.UserUpdatetDto;
+import ru.rt.demo.model.User;
 
 import java.util.List;
 
@@ -32,5 +34,7 @@ public interface UserService {
      * @param userId
      */
 //    void delete(long userId);
+
+    User updateUser(Long userId, UserUpdatetDto userUpdatetDto);
 
 }
