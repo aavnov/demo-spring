@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     public List<UserDto> getAllUsers(List<Long> ids, Integer from, Integer size) {
         Page<User> users;
         if (ids == null) {
-            users = userRepository.findAll(PageRequest.of(from / size, size));
+            users = userRepository.findAll(GetPagable.of(from, size));
         } else {
             users = userRepository.findAllByIdIn(ids, PageRequest.of(from / size, size));
         }
