@@ -1,6 +1,7 @@
 package ru.rt.demo.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
@@ -14,14 +15,20 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder(toBuilder = true)
 public class ApiError {
-    List<String> errors;
+    @JsonProperty("errors")
+    List<String> errors; //Список стектрейсов или описания ошибок
 
-    String message;
+    @JsonProperty("message")
+    String message; //Сообщение об ошибке
 
-    String reason;
+    @JsonProperty("reason")
+    String reason; //Общее описание причины ошибки
 
-    HttpStatus status;
+    @JsonProperty("status")
+    HttpStatus status; //Код статуса HTTP-ответа
 
+    @JsonProperty("timestamp")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime timestamp = LocalDateTime.now();
+
 }

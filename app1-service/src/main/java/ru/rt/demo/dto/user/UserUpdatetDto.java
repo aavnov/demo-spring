@@ -5,6 +5,9 @@ import lombok.experimental.FieldDefaults;
 import ru.rt.demo.messages.ExceptionMessages;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Optional;
 
 
@@ -14,8 +17,11 @@ import java.util.Optional;
 @Builder
 @AllArgsConstructor
 public class UserUpdatetDto {
+    @Size(min = 6)
+    @Size(max = 254)
     String email;
 
-    @NotBlank(message = ExceptionMessages.EMPTY_NAME)
+    @Size(min = 6)
+    @Size(max = 254)
     String name;
 }

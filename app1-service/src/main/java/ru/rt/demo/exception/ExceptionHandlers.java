@@ -1,6 +1,5 @@
 package ru.rt.demo.exception;
 
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,18 +13,18 @@ import java.util.List;
 @RestControllerAdvice
 public class ExceptionHandlers {
 
-//    @ExceptionHandler(DataIntegrityViolationException.class)
-//    @ResponseStatus(HttpStatus.CONFLICT)
-//    public ApiError handleDataIntegrityException(final DataIntegrityViolationException e, WebRequest request) {
-//        ApiError apiError = new ApiError.ApiErrorBuilder()
-//                .errors(List.of(e.getClass().getName()))
-//                .message(e.getMessage())
-//                .reason("Integrity constraint has been violated.")
-//                .status(HttpStatus.CONFLICT)
-//                .timestamp(LocalDateTime.now())
-//                .build();
-//        return apiError;
-//    }
+    @ExceptionHandler(BadRequestException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiError handleBadRequestException(final BadRequestException e, WebRequest request) {
+        ApiError apiError = new ApiError.ApiErrorBuilder()
+                .errors(List.of(e.getClass().getName()))
+                .message(e.getMessage())
+                .reason("Bad request " + request.getDescription(false))
+                .status(HttpStatus.BAD_REQUEST)
+                .timestamp(LocalDateTime.now())
+                .build();
+        return apiError;
+    }
 
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
