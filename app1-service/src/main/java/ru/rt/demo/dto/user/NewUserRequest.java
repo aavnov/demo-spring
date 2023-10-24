@@ -1,9 +1,6 @@
 package ru.rt.demo.dto.user;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.validation.constraints.NotBlank;
@@ -14,6 +11,9 @@ import javax.validation.constraints.Size;
 @Setter
 @Getter
 @ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class NewUserRequest {
     @NotNull

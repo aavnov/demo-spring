@@ -42,12 +42,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> getUsers(List<Long> ids, Integer from, Integer size) {
-        Page<User> users;
-        if (ids == null) {
-            users = userRepository.findAll(GetPagable.of(from, size));
-        } else {
-            users = userRepository.findAllByIdIn(ids, PageRequest.of(from / size, size));
-        }
+        final List<User> users = (ids == null)
+            ? userRepository.findAll(GetPagable.of(from, size)).getContent()
+            : userRepository.findAllByIdIn(ids, PageRequest.of(from / size, size)).getContent();
 
         log.debug(String.valueOf(LogMessages.GET_ALL), "ПОЛЬЗОВАТЕЛЕЙ");
         return users.stream().map(UserMapper::toUserDto).collect(Collectors.toList());
@@ -59,7 +56,9 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new NotFoundException(ExceptionMessages.NOT_FOUND_ID));
 
         log.debug(String.valueOf(LogMessages.UPDATE), "ПОЛЬЗОВАТЕЛЬ");
-        return userRepository.save(UserMapper.toUser(userUpdatetDto, user));
+        User userUpdated = UserMapper.toUser(userUpdatetDto, user);
+        userRepository.save(userUpdated);
+        return userUpdated;
     }
 
     @Override
