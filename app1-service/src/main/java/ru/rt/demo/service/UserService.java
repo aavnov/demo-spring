@@ -27,14 +27,22 @@ public interface UserService {
      * @param size количество элементов в наборе default: 10
      * @return
      */
-    List<UserDto> getAllUsers(List<Long> ids, Integer from, Integer size);
+    List<UserDto> getUsers(List<Long> ids, Integer from, Integer size);
+
+    /**
+     * Обновляет информацию о пользователе по полям, которые присутствовали в
+     * request-запросе.
+     * @param userId идентификатор обновляемого пользователя
+     * @param userUpdatetDto объект с полями пользователя, которые обновляются
+     * @return
+     */
+    User updateUser(Long userId, UserUpdatetDto userUpdatetDto);
 
     /**
      * Удаление пользователя
      * @param userId
      */
-//    void delete(long userId);
+    void deleteUser(long userId);
 
-    User updateUser(Long userId, UserUpdatetDto userUpdatetDto);
 
 }
