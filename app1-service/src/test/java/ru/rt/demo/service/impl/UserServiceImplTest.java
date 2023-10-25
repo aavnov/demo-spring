@@ -79,7 +79,7 @@ class UserServiceImplTest {
                 .thenReturn(Optional.ofNullable(userOpt));
         when(repository.save(any())).thenReturn(userOpt);
 
-        User actualUser = service.updateUser(1L, userUpdatetDto );
+        User actualUser = service.updateUser(1L, userUpdatetDto);
         assertEquals(actualUser.getName(), "newTest");
     }
 

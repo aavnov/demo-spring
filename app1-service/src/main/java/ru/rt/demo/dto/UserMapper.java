@@ -9,7 +9,6 @@ import ru.rt.demo.model.User;
 import java.util.Optional;
 
 
-
 @UtilityClass
 public class UserMapper {
 
@@ -21,7 +20,7 @@ public class UserMapper {
     }
 
 
-    public  User toUser(UserUpdatetDto userDto, User user){
+    public User toUser(UserUpdatetDto userDto, User user) {
         Optional.ofNullable(userDto.getName()).ifPresent(user::setName);
         Optional.ofNullable(userDto.getEmail()).ifPresent(user::setEmail);
         return user;

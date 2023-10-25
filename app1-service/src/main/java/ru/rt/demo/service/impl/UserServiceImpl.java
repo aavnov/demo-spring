@@ -2,7 +2,6 @@ package ru.rt.demo.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.rt.demo.dto.UserMapper;
@@ -43,8 +42,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> getUsers(List<Long> ids, Integer from, Integer size) {
         final List<User> users = (ids == null)
-            ? userRepository.findAll(GetPagable.of(from, size)).getContent()
-            : userRepository.findAllByIdIn(ids, PageRequest.of(from / size, size)).getContent();
+                ? userRepository.findAll(GetPagable.of(from, size)).getContent()
+                : userRepository.findAllByIdIn(ids, PageRequest.of(from / size, size)).getContent();
 
         log.debug(String.valueOf(LogMessages.GET_ALL), "ПОЛЬЗОВАТЕЛЕЙ");
         return users.stream().map(UserMapper::toUserDto).collect(Collectors.toList());

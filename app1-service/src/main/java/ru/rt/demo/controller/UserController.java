@@ -45,7 +45,7 @@ public class UserController {
 
     @PatchMapping("/{userId}")
     public User updateUser(@PathVariable Long userId,
-                           @Valid @RequestBody UserUpdatetDto userUpdatetDto){
+                           @Valid @RequestBody UserUpdatetDto userUpdatetDto) {
         log.debug(String.valueOf(LogMessages.TRY_UPDATE), "ПОЛЬЗОВАТЕЛЯ");
         return userService.updateUser(userId, userUpdatetDto);
     }
