@@ -1,28 +1,5 @@
 version: '3.3'
 services:
-#  stats-server:
-#    build: ./stats-service/stats-microservice
-#    image: stats-microservice
-#    container_name: stats-container
-#    depends_on:
-#      - stats-db
-#    ports:
-#      - "9090:9090"
-#
-#    environment:
-#      - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/stats-db
-#
-#  stats-db:
-#    image: postgres:14-alpine
-#    container_name: stats-db-container
-#    ports:
-#      - "6540:5432"
-#    environment:
-#      - POSTGRES_DB=stats-db
-#      - POSTGRES_USER=root
-#      - POSTGRES_PASSWORD=root
-
-
   app1-service:
     build: ./app1-service
     image: app1-service
@@ -33,8 +10,6 @@ services:
       - "8080:8080"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://app1-db:5432/app1-db
-#      - STATS_SERVER_URL=http://stats-server:9090
-
 
   app1-db:
     image:
